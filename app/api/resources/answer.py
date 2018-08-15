@@ -27,3 +27,12 @@ class AnswerList(Resource):
             return AnswerModel.add_answer(questionID, answer), 201
 
         return {"message": "You cannot answer a non-existing question"}, 403
+
+    def get(self, questionID):
+        #Check if the question exists
+        #If true get the answers for the question
+        #else return error messages 
+        if QuestionModel.find_by_id(questionID):
+            return AnswerModel.get_answers(questionID)
+
+        return {"message": "You can't find answers for a non existing question"}
