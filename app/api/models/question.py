@@ -68,3 +68,20 @@ class QuestionModel:
         #append the dictionsry to the questions list
         questions.append(new_question)
         return new_question
+
+    """Update the question in the questions list
+    """
+    def update(self):
+        #Create a new dictionsry
+        updated_question = {
+            "title": self.title,
+            "description": self.description
+        }
+        #Check if the question dictionary exists in the questions list
+        #if it matches the object id, update and return True
+        #else, return False
+        for question in questions:
+            if question['id'] == self.id:
+                question.update(updated_question)
+                return True
+        return False

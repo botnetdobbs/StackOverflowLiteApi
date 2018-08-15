@@ -2,6 +2,19 @@ from flask_restful import Resource, reqparse
 from api.models.question import QuestionModel
 
 class Question(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('title', 
+        type = str,
+        required = True,
+        help = 'The title field is required.'
+    )
+    
+    parser.add_argument('description',
+        type = str,
+        required = True,
+        help = 'The description field is required.'
+    )
+
     def get(self, questionID):
         #Check if question exists
         #if true(returns an object) return it
@@ -11,6 +24,27 @@ class Question(Resource):
             return question.json(), 200
         return {"message": "Question not available."}, 404
 
+    """Process the PUT request for updating specific a question
+    """
+    @classmethod
+    def put(cls, questionID):
+        #Check if the question description already exists
+        #if it exists return an error message
+        #if not, check if the question identified by id exists
+        #if true, update the question and return
+        #else, return an error message
+        data = cls.parser.parse_args()
+        if not QuestionModel.find_by_description(data['description']):
+            question = QuestionModel.find_by_id(questionID)
+            if question:
+                #create a new object with updated details
+                updated_question = QuestionModel(data['title'], data['description'], question.id)
+                #Update and return json data
+                if updated_question.update():
+                    return updated_question.json()
+                return {"message": "Item could not be updated"}
+            return {"message": "Item does not exist."}
+        return {"message": "Question with the same decription already exists."}
 
 class QuestionList(Resource):
     parser = reqparse.RequestParser()
