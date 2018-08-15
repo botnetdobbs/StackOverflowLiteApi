@@ -1,5 +1,5 @@
 from flask_restful import Resource, reqparse
-from models.question import QuestionModel
+from api.models.question import QuestionModel
 
 class Question(Resource):
     pass
