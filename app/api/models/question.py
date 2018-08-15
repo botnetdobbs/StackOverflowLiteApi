@@ -34,6 +34,13 @@ class QuestionModel:
                 return True
         return False
 
+    @classmethod
+    def all(cls):
+        if questions:
+            return {"questions": questions}
+        return None
+            
+
     """Save the question to the questions list
     """
     def save(self):

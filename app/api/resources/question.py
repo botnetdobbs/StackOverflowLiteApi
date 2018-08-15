@@ -36,3 +36,16 @@ class QuestionList(Resource):
         response = question.save()
 
         return response, 201
+
+    """Process the POST request for adding a question
+    """
+    def get(self):
+        #call the all classmethod of questionModel class to get the response
+        #if response exists , return it
+        #else, return an error message
+        response = QuestionModel.all()
+        if response:
+            return response
+
+        return {"message": "No questions found!"}
+        
