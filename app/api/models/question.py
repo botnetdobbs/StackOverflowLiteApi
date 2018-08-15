@@ -85,3 +85,15 @@ class QuestionModel:
                 question.update(updated_question)
                 return True
         return False
+
+    """Delete the question in the questions list
+    """
+    def delete(self):
+        #Called global variable question
+        global questions
+        for question in questions:
+            if question['id'] == self.id:
+                #Filter through the list only retaining non natching questions
+                questions = list(filter(lambda x: x['id'] != self.id, questions))
+                return True
+        return False

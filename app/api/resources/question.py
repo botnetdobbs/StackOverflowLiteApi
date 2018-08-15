@@ -46,6 +46,18 @@ class Question(Resource):
             return {"message": "Item does not exist."}
         return {"message": "Question with the same decription already exists."}
 
+    def delete(self, questionID):
+        #Check if the question really exists
+        #if True call the delete method and return a success message
+        #else, return an error message
+        question = QuestionModel.find_by_id(questionID)
+        if question:
+            if question.delete():
+                return {"message": "Question deleted successfully."}
+            else:
+                return {"message": "Question not deleted."}
+        return {"message": "Question does not exist."}
+
 class QuestionList(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('title', 
