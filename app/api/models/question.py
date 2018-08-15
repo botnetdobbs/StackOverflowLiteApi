@@ -24,6 +24,20 @@ class QuestionModel:
         self.description = description
         self.id = _id
 
+    """Return the object in json(dict) format
+    """
+    def json(self):
+        return {"title": self.title, "description": self.description}
+
+    """Find the question by id & return an object
+    """
+    @classmethod
+    def find_by_id(cls, questionID):
+        for question in questions:
+            if question['id'] == questionID:
+                return cls(question['title'], question['description'], questionID)
+        return None
+
     """Check if a question with the exact description 
                 exists in the list
     """

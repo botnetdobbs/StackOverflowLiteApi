@@ -2,7 +2,14 @@ from flask_restful import Resource, reqparse
 from api.models.question import QuestionModel
 
 class Question(Resource):
-    pass
+    def get(self, questionID):
+        #Check if question exists
+        #if true(returns an object) return it
+        #else, return an error message
+        question = QuestionModel.find_by_id(questionID)
+        if question:
+            return question.json(), 200
+        return {"message": "Question not available."}, 404
 
 
 class QuestionList(Resource):
