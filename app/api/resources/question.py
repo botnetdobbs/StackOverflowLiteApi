@@ -24,6 +24,11 @@ class QuestionList(Resource):
     @classmethod
     def post(cls):
         data = cls.parser.parse_args()
+        #Check if a question with the same description exists
+        #return an error message if it exists
+        #else, save the new question and return a response
+        if QuestionModel.find_by_description(data['description']):
+            return {"message": "The question is already asked"}
 
         #Create a question object and pass the arguments
         question = QuestionModel(data["title"], data["description"])

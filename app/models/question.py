@@ -24,6 +24,16 @@ class QuestionModel:
         self.description = description
         self.id = _id
 
+    """Check if a question with the exact description 
+                exists in the list
+    """
+    @classmethod
+    def find_by_description(cls, description):
+        for question in questions:
+            if question['description'] == description:
+                return True
+        return False
+
     """Save the question to the questions list
     """
     def save(self):
