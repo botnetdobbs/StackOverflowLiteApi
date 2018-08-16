@@ -4,6 +4,12 @@ from api.models.question import QuestionModel
 
 
 class Answer(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('answer', 
+        type = str,
+        required = True,
+        help = "The answer field is required"
+    )
 
     """Get a specific answer to the question
     """
@@ -20,6 +26,25 @@ class Answer(Resource):
                 return {"message": "Answer not found."}
         else:
             return {"message": "Cannot get answer for a non-existing question"}
+
+    """Update a specific answer to the question
+    """
+    @classmethod
+    def put(cls, questionID, answerID):
+        data = cls.parser.parse_args()
+        #check if the question exists
+        #if exists, check for the answer
+        #create a new answer object, update and return it
+        #else return an error message
+        if QuestionModel.find_by_id(questionID):
+            answer = AnswerModel.find_by_id(questionID, answerID)
+            if answer:
+                updated_answer = AnswerModel(data["answer"], answerID)
+                return updated_answer.update(questionID)
+            else:
+                return {"message": "Answer not found."}
+        else:
+            return {"message": "Cannot update answer for a non-existing question."}
 
 
 class AnswerList(Resource):

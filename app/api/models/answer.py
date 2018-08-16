@@ -40,5 +40,17 @@ class AnswerModel:
                         return cls(answer["answer"], answer["id"])
         return None
 
+    """Update the answer object
+    """
+    def update(self, questionID):
+        updated_answer = {"answer": self.answer}
+        for question in questions:
+            if question["id"] == questionID:
+                for answer in question["answers"]:
+                    if answer["id"] == self.id:
+                        answer.update(updated_answer)
+                        return updated_answer
+        return None
+
     
 
