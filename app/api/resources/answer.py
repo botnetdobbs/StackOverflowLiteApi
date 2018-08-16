@@ -48,13 +48,13 @@ class Answer(Resource):
 
     """Delete a specific answer to the question
     """
-    @classmethod
-    def delete(cls, questionID, answerID):
+    def delete(self, questionID, answerID):
         question = QuestionModel.find_by_id(questionID)
         if question:
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
-                return answer.delete(questionID)
+                answer.delete(questionID)
+                return {"message": "Answer deleted successfully"} 
             else:
                 return {"message": "Answer not found!"}
         else:

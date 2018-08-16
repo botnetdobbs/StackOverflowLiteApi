@@ -68,8 +68,9 @@ class AnswerModel:
             if question['id'] == questionID:
                 for answer in question['answers']:
                     if answer['id'] == self.id:
-                        if question['answers'].remove(answer):
-                            return {"message": "Answer deleted successfully"}
+                        question['answers'].remove(answer)
+                            
+        return None
         
     
 
