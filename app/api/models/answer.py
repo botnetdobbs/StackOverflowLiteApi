@@ -22,8 +22,11 @@ class AnswerModel:
     def add_answer(cls, questionID, answer):
         for question in questions:
             if question['id'] == questionID:
-                #Add id(auto increment to the answer)
-                answer.update({"id": question["answers"][-1]["id"] + 1 if question["answers"][-1] else 1 })
+                ans_id = 1
+                if len(question["answers"]) > 0:
+                    #Add id(auto increment to the answer)
+                    ans_id = question["answers"][-1]["id"] + 1
+                answer.update({"id": ans_id})
                 question["answers"].append(answer)
                 return question
         return {"message": "Error adding answer."}

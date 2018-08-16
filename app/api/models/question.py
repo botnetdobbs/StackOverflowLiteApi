@@ -58,9 +58,14 @@ class QuestionModel:
     """Save the question to the questions list
     """
     def save(self):
+        qst_id = 1
+        #Check if a questions are available
+        if len(questions) > 0:
+            #Add id(auto increment to the question id)
+            qst_id = questions[-1]["id"] + 1
         #Create a new question dictionary
         new_question = {
-            "id": questions[-1]['id'] + 1,
+            "id": qst_id,
             "title": self.title,
             "description": self.description,
             "answers": []
