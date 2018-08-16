@@ -23,7 +23,7 @@ class AnswerModel:
         for question in questions:
             if question['id'] == questionID:
                 #Add id(auto increment to the answer)
-                answer.update({"id": question["answers"][-1]["id"] + 1})
+                answer.update({"id": question["answers"][-1]["id"] + 1 if question["answers"][-1] else 1 })
                 question["answers"].append(answer)
                 return question
         return {"message": "Error adding answer."}
@@ -52,5 +52,15 @@ class AnswerModel:
                         return updated_answer
         return None
 
+    """Delete the answer object
+    """
+    def delete(self, questionID):
+        for question in questions:
+            if question['id'] == questionID:
+                for answer in question['answers']:
+                    if answer['id'] == self.id:
+                        if question['answers'].remove(answer):
+                            return {"message": "Answer deleted successfully"}
+        
     
 

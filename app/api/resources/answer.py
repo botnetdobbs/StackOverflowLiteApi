@@ -46,6 +46,19 @@ class Answer(Resource):
         else:
             return {"message": "Cannot update answer for a non-existing question."}
 
+    """Delete a specific answer to the question
+    """
+    @classmethod
+    def delete(cls, questionID, answerID):
+        question = QuestionModel.find_by_id(questionID)
+        if question:
+            answer = AnswerModel.find_by_id(questionID, answerID)
+            if answer:
+                return answer.delete(questionID)
+            else:
+                return {"message": "Answer not found!"}
+        else:
+            return {"message": "The question does not exist"}
 
 class AnswerList(Resource):
     parser = reqparse.RequestParser()
