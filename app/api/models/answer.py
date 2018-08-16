@@ -40,6 +40,15 @@ class AnswerModel:
                         return cls(answer["answer"], answer["id"])
         return None
 
+    """Get answer/s to the question in the questions list
+    """
+    @classmethod
+    def get_answers(cls, questionID):
+        for question in questions:
+            if question['id'] == questionID:
+                return {"answers": question['answers']}
+        return {"message": "Question does not exist."}
+
     """Update the answer object
     """
     def update(self, questionID):
