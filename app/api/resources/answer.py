@@ -4,7 +4,22 @@ from api.models.question import QuestionModel
 
 
 class Answer(Resource):
-    pass
+
+    """Get a specific answer to the question
+    """
+    def get(self, questionID, answerID):
+        #Check if the question really exists
+        #If True check for the answer and return
+        #else, return a error message
+        if QuestionModel.find_by_id(questionID):
+            #Check for answer, returns an object
+            answer = AnswerModel.find_by_id(questionID, answerID)
+            if answer:
+                return answer.json()
+            else:
+                return {"message": "Answer not found."}
+        else:
+            return {"message": "Cannot get answer for a non-existing question"}
 
 
 class AnswerList(Resource):

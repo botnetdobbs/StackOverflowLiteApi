@@ -11,6 +11,11 @@ class AnswerModel:
         self.id = _id
         self.answer = answer
 
+    """Return the answer in json(dict) format
+    """
+    def json(self):
+        return {"answer": self.answer}
+
     """Add answer to the question in the questions list
     """
     @classmethod
@@ -22,4 +27,18 @@ class AnswerModel:
                 question["answers"].append(answer)
                 return question
         return {"message": "Error adding answer."}
+
+    """Find an answer uniquely identified by its ID
+    """
+    @classmethod
+    def find_by_id(cls, questionID, answerID):
+        for question in questions:
+            if question["id"] == questionID:
+                for answer in question["answers"]:
+                    if answer["id"] == answerID:
+                        #return an object
+                        return cls(answer["answer"], answer["id"])
+        return None
+
+    
 
