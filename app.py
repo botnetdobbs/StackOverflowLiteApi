@@ -18,43 +18,43 @@ api.add_resource(Answer, '/api/v1/questions/<int:questionID>/answers/<int:answer
 
 @app.route('/')
 def home():
-    return """Testing only available through Postman.
-    Add the following at the end of the Url:- 'api/v1/questions'...,
-    1. Posting a question
-    - POST _https://zstackoverflowliteapi.herokuapp.com/api/v1/question_
+    return """Testing only available through Postman.\n\n
+    Add the following at the end of the Url:- 'api/v1/questions'...,\n
+    1. Posting a question\n
+    - POST _https://zstackoverflowliteapi.herokuapp.com/api/v1/question_\n\n
 
-    2. Fetch all questions
-    - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/question_
+    2. Fetch all questions\n
+    - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/question_\n\n
 
-    3. Fetch a specific question
-    - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>_
+    3. Fetch a specific question\n
+    - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>_\n\n
 
-    4. Edit a specific question
-    - PUT _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>_
+    4. Edit a specific question\n
+    - PUT _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>_\n\n
 
-    5. Delete a specific question
-    - DELETE _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>_
+    5. Delete a specific question\n
+    - DELETE _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>_\n\n
 
-    6. Posting an answer to the specific question
-    - POST _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>/answers_
+    6. Posting an answer to the specific question\n
+    - POST _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>/answers_\n\n
 
-    7. Fetch an answer(s) to the specific question
-    - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>/answers_
+    7. Fetch an answer(s) to the specific question\n
+    - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>/answers_\n\n
 
-    8. Fetch a specific answer from a specific question
-    - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>/answers<<int:answerID>>_
+    8. Fetch a specific answer from a specific question\n
+    - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>/answers<<int:answerID>>_\n\n
 
-    9. Edit a specific answer from a specific question
-    - PUT _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>/answers<<int:answerID>>_
+    9. Edit a specific answer from a specific question\n
+    - PUT _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>/answers<<int:answerID>>_\n\n
 
-    10. Delete a specific answer from a specific question
-    - DELETE _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>/answers<<int:answerID>>_
+    10. Delete a specific answer from a specific question\n
+    - DELETE _https://zstackoverflowliteapi.herokuapp.com/api/v1/question/<int:questionID>/answers<<int:answerID>>_\n
 
-    NB:-Unique Identifiers
-    > <int:questionID>
-    > <int:answerID>
+    NB:-Unique Identifiers\n
+    > <int:questionID>\n
+    > <int:answerID>\n\n
     
-    NB:- You can save yourself the burden of typing the long url using Postman variables
+    NB:- You can save yourself the burden of typing the long url using Postman variables\n
     http://blog.getpostman.com/2014/02/20/using-variables-inside-postman-and-collection-runner/"""
 
 
