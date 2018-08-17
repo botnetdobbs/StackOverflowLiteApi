@@ -2,6 +2,9 @@
 # StackOverflowLiteApi
 StackOverflowLiteApi is a question and answer platform API
 
+#Usage
+- [Heroku-Link](https://zstackoverflowliteapi.herokuapp.com/api/v1/questions)
+
 ## Endpoints to the API
 1. Posting a question
 - POST _http://127.0.0.1:500/api/v1/question_
