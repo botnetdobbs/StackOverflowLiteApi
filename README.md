@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/botnetdobbs/StackOverflowLiteApi.svg?branch=master)](https://travis-ci.com/botnetdobbs/StackOverflowLiteApi)
 # StackOverflowLiteApi
 StackOverflowLiteApi is a question and answer platform API
 
