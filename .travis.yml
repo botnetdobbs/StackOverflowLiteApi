@@ -5,4 +5,5 @@ python:
 install: 
 - "pip install pytest"
 - "pip install -r requirements.txt"
+- "pip install coveralls"
 script: python -m pytest tests/
