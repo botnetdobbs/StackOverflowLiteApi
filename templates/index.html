@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background-color: #c8fcce;
+            font-size: 16px;
+        }
+        .container {
+            margin: 30px;
+            text-align: center;
+
+        }
+        h1 {
+            color: #2b072b
+        }
+        h3 {
+            color: #f19c9c
+        }
+        p {
+            color: #3c4707
+        }
+    </style>
+    <title>StackOverflowLiteAPI</title>
+</head>
+<body>
+    <div class="container">
+        <h1>StackOverflowLiteAPI</h1> 
+        Testing only available through Postman. 
+        <h3>1. Posting a question</h3>
+        <p> - POST https://zstackoverflowliteapi.herokuapp.com/api/v1/questions_</p>
+        <h3>2. Fetch all questions</h3>
+        <p> - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/questions_</p>
+        <h3>3. Fetch a specific question</h3>
+        <p> - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID></p>
+        <h3>4. Edit a specific question</h3>
+        <p> - PUT https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID></p>
+        <h3>5. Delete a specific question</h3>
+        <p> - DELETE https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID></p>
+        <h3>6. Posting an answer to the specific question</h3>
+        <p> - POST https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID>/answers</p>
+        <h3>7. Fetch an answer(s) to the specific question</h3>
+        <p> - GET https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID>/answers</p>
+        <h3>8. Fetch a specific answer from a specific question</h3>
+        <p> - GET https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID>/answers<'int:answerID></p>
+        <h3>9. Edit a specific answer from a specific question</h3>
+        <p> - PUT https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID>/answers<'int:answerID></p>
+        <h3>10. Delete a specific answer from a specific question</h3>
+        <p> - DELETE https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID>/answers<'int:answerID></p>
+        
+        <p>NB:- You can save yourself the burden of typing the long urls using Postman <a href="http://blog.getpostman.com/2014/02/20/using-variables-inside-postman-and-collection-runner/">Variables</a></p>
+    </div>
+</body>
+</html>
