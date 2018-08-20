@@ -2,8 +2,8 @@
 # StackOverflowLiteApi
 StackOverflowLiteApi is a question and answer platform API
 
-#Usage
-- [Heroku-Link](https://zstackoverflowliteapi.herokuapp.com/api/v1/questions)
+# Usage
+- [Get started here](https://zstackoverflowliteapi.herokuapp.com)
 
 ## Endpoints to the API
 1. Posting a question
