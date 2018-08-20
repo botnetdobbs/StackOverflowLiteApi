@@ -1,17 +1,5 @@
 #Declare the data structure to store our questions and answers (List)
-questions = [
-    {
-        "id": 1,
-        "title": "The default sample title",
-        "description": "The default sample QUESTION",
-        "answers": [
-            {
-                "id": 1,
-                "answer": "The default sample ANSWER"
-            }
-        ]
-    }
-]
+questions = []
 
 class QuestionModel:
 
