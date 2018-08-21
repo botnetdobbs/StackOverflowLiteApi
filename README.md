@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.com/botnetdobbs/StackOverflowLiteApi.svg?branch=master)](https://travis-ci.com/botnetdobbs/StackOverflowLiteApi)
+
+[![Coverage Status](https://coveralls.io/repos/github/botnetdobbs/StackOverflowLiteApi/badge.svg?branch=master)](https://coveralls.io/github/botnetdobbs/StackOverflowLiteApi?branch=master)
 # StackOverflowLiteApi
 StackOverflowLiteApi is a question and answer platform API
 
