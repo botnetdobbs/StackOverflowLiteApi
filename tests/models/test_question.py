@@ -1,8 +1,6 @@
 import pytest
 from api.models.question import QuestionModel, questions
-
-def reset_question():
-    questions.clear()
+from tests.main import reset_question
 
 def test_new_question_item():
     """
@@ -40,3 +38,4 @@ def test_json():
 
     question_query = QuestionModel.find_by_id(1)
     assert question_query.json() == {"title": 'Json title', "description": 'Json description'}
+    reset_question()
