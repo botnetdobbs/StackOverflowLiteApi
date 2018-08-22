@@ -1,11 +1,10 @@
 from flask import Flask, render_template, jsonify
 from flask_restful import Api
-
+#Import the Bcrypr class for password hashing
+from flask_bcrypt import Bcrypt
+from datetime import timedelta
 from api.resources.question import Question, QuestionList
 from api.resources.answer import Answer, AnswerList
-
-from datetime import timedelta
-
 from api.resources.user import UserRegister
 
 from api.verify import authenticate, identity
@@ -14,6 +13,8 @@ from flask_jwt import JWT
 
 
 app = Flask(__name__)
+#pass the flask app object to the Bcrypt class and store in bcrypt
+bcrypt = Bcrypt(app)
 app.secret_key = 'xbt3ybot9'
 api = Api(app)
 #Custom authentification endpoint

@@ -1,5 +1,6 @@
 #Import the connection
 from api.db import connect
+from api import bcrypt
 
 class UserModel:
     """Initialize the class, the _id being
@@ -9,7 +10,7 @@ class UserModel:
     def __init__(self, username, password, _id=None):
         self.id = _id
         self.username = username
-        self.password = password
+        self.password = bcrypt.generate_password_hash(password)
 
     def save(self):
         #Save the object to the database
