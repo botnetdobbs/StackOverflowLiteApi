@@ -39,8 +39,9 @@ class Answer(Resource):
         if QuestionModel.find_by_id(questionID):
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
-                updated_answer = AnswerModel(data["answer"], answerID)
-                return updated_answer.update(questionID)
+                answer.answer = data['answer']
+                if answer.update(questionID):
+                    return {"message": "Your answer updated successfully"}
             else:
                 return {"message": "Answer not found."}
         else:
@@ -56,9 +57,9 @@ class Answer(Resource):
                 answer.delete(questionID)
                 return {"message": "Answer deleted successfully"} 
             else:
-                return {"message": "Answer not found!"}
+                return {"message": "Answer already deleted or does not exist.!"}
         else:
-            return {"message": "The question does not exist"}
+            return {"message": "Cannot delete answer for a non-existing question."}
 
 class AnswerList(Resource):
     parser = reqparse.RequestParser()
@@ -76,8 +77,11 @@ class AnswerList(Resource):
         #else return error messages
         data = cls.parser.parse_args()
         if QuestionModel.find_by_id(questionID):
-            answer = {"answer": data["answer"]}
-            return AnswerModel.add_answer(questionID, answer), 201
+            # if not AnswerModel.find_by_description(questionID, data['answer'])
+            answer = AnswerModel(data["answer"])
+            if answer.add_answer(questionID):
+                return {"message": "Answer inserted successfully"}
+            # return {"message": "The answer already exists"}
 
         return {"message": "You cannot answer a non-existing question"}, 403
 
@@ -86,5 +90,8 @@ class AnswerList(Resource):
         #if True, return the answers
         #else, return an error message
         if QuestionModel.find_by_id(questionID):
-            return AnswerModel.get_answers(questionID)
+            answers = AnswerModel.get_answers(questionID)
+            if answers:
+                return answers
+            return {"message": "There are no answers for this question"}
         return {"message": "You can't find answers for a non existing question"}
