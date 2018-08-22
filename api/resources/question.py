@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from api.models.question import QuestionModel
+from flask_jwt import current_identity, jwt_required
 
 class Question(Resource):
     parser = reqparse.RequestParser()
@@ -74,9 +75,15 @@ class QuestionList(Resource):
 
     """Process the POST request for adding a question
     """
-    @classmethod
-    def post(cls):
-        data = cls.parser.parse_args()
+    @jwt_required()
+    def post(self):
+        data = QuestionList.parser.parse_args()
+        #Get the identity of the currently logged in user
+        identity = 0
+        if current_identity.id:
+            identity = current_identity.id
+        else:
+            return {"message": "Login to continue"}
         #Check if a question with the same description exists
         #return an error message if it exists
         #else, save the new question and return a response
@@ -86,8 +93,7 @@ class QuestionList(Resource):
         #Create a question object and pass the arguments
         question = QuestionModel(data["title"], data["description"])
 
-        response = question.save()
-
+        response = question.save(identity)
         return response, 201
 
     """Process the POST request for adding a question
@@ -101,4 +107,5 @@ class QuestionList(Resource):
             return response
 
         return {"message": "No questions found!"}
+
         
