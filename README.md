@@ -18,7 +18,7 @@ NB: Challenge 2 is in the challenge2 branch
 Use [Postman](https://www.getpostman.com)
 
 - Create [Variables](http://blog.getpostman.com/2014/02/20/using-variables-inside-postman-and-collection-runner/) for your requests to avoid typing the long urls
--On the POST endpoint for login, go to the "tests" tab and add thie following
+- On the POST endpoint for login, go to the "tests" tab and add thie following
 ```javascript
 const jsonData = JSON.parse(responseBody);
 postman.setEnvironmentVariable("jwt_token", jsonData.access_token);
