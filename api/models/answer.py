@@ -51,7 +51,11 @@ class AnswerModel:
                 #Check if answer is not None
                 if answers:
                     for answer in answers:
-                        answ.append({"id": answer[0], "question_id":answer[1], "answer": answer[3]})
+                        answ.append({"id": answer[0], 
+                                    "question_id":answer[1], 
+                                    "answer": answer[3], 
+                                    "upvotes": answer[4],
+                                    "downvotes": answer[5]})
                     return {"answers": answ}
                 return None
 
@@ -70,6 +74,21 @@ class AnswerModel:
         with connect() as connection:
             with connection.cursor() as cursor:
                 cursor.execute("DELETE FROM answers WHERE id = %s AND question_id = %s", (self.id, questionID))
+                return True
+    """Upvote the answer object
+    """
+    def upvote(self, questionID):
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("UPDATE answers SET upvote = upvote + %s WHERE id=%s AND question_id=%s", (1, self.id, questionID))
+                return True
+
+    """Downvote the answer object
+    """
+    def downvote(self, questionID):
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("UPDATE answers SET downvote = downvote + %s WHERE id=%s AND question_id=%s", (1, self.id, questionID))
                 return True
         
     
