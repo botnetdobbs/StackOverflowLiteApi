@@ -1,5 +1,4 @@
-#Import the connection
-from api.db import connect
+users = []
 
 class UserModel:
     """Initialize the class, the _id being
@@ -12,43 +11,35 @@ class UserModel:
         self.password = password
 
     def save(self):
-        #Save the object to the database
-        with connect() as connection:
-            with connection.cursor() as cursor:
-                cursor.execute("INSERT INTO users (username, password) VALUES(%s, %s)", (self.username, self.password))
+        #Save the object to the list as dictionary
+        user_id = 1
+        #Check if a questions are available
+        if len(users) > 0:
+            #Add id(auto increment to the question id)
+            user_id = users[-1]["id"] + 1
+        #Create a new question dictionary
+        new_user = {
+            "id": user_id,
+            "username": self.username,
+            "password": self.password,
+        }
+        #append the dictionsry to the questions list
+        users.append(new_user)
+        return True
+
     """Find a user uniquely identified by the username
     """
     @classmethod
     def get_by_username(cls, username):
-        #Save the connection as connection
-        #Get the cursor fro0m the connection variable
-        #No need to commit, Once the program exits the with block
-        #It will automatically commit and close the connection
-        with connect() as connection:
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
-                user = cursor.fetchone()
-                if user:
-                    return cls(user[1], user[2], user[0])
-                else:
-                    return None
+        for user in users:
+            if user['username'] == username:
+                return cls(user['username'], user['password'], user['id'])
 
     """Find a user uniquely identified by the ID
     """
     @classmethod
     def get_by_id(cls, user_id):
-        #Save the connection as connection
-        #Get the cursor from the connection variable
-        #No need to commit, Once the program exits the with block
-        #It will automatically commit and close the connection
-        with connect() as connection:
-            with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM users WHERE id = %d", (user_id,))
-                user = cursor.fetchone()
-                return cls(user[1], user[2], user[0])
-
-#With this approach we have to create a connection each time we need it hence
-# possible overhead performance costs.
-#Connection pooling can help solve the issue.
-#http://initd.org/psycopg/docs/pool.html
+        for user in users:
+            if user.id == id:
+                return cls(user['username'], user['password'], user['id'])
         

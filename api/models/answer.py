@@ -50,6 +50,8 @@ class AnswerModel:
         for question in questions:
             if question['id'] == questionID:
                 return {"answers": question['answers']}
+            else:
+                return {"message": "No answers available"}
         return {"message": "Question does not exist."}
 
     """Update the answer object
