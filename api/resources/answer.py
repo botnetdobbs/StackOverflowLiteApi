@@ -61,6 +61,7 @@ class Answer(Resource):
         else:
             return {"message": "Cannot delete answer for a non-existing question."}
 
+
 class AnswerList(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('answer', 
@@ -95,3 +96,36 @@ class AnswerList(Resource):
                 return answers
             return {"message": "There are no answers for this question"}
         return {"message": "You can't find answers for a non existing question"}
+
+
+class AnswerUpVote(Resource):
+        #Check if the question exists
+        #if True create an answer object and upvote it
+        #else return error messages
+    def put(self, questionID, answerID):
+        question = QuestionModel.find_by_id(questionID)
+        if question:
+            answer = AnswerModel.find_by_id(questionID, answerID)
+            if answer:
+                answer.upvote(questionID)
+                return {"message": "Answer upvoted successfully"} 
+        else:
+            return {"message": "Cannot upvote answer for a non-existing question."}
+
+class AnswerDownVote(Resource):
+    def put(self, questionID, answerID):
+        # parser = reqparse.RequestParser()
+        # parser.add_argument('downvote', 
+        #     type = str,
+        #     required = True,
+        #     help = "The upvote field is required"
+        # )
+        # data = parser.parse_args()
+        question = QuestionModel.find_by_id(questionID)
+        if question:
+            answer = AnswerModel.find_by_id(questionID, answerID)
+            if answer:
+                answer.downvote(questionID)
+                return {"message": "Answer downvoted successfully"} 
+        else:
+            return {"message": "Cannot upvote answer for a non-existing question."}
