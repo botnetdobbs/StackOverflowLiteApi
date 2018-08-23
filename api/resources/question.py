@@ -28,6 +28,7 @@ class Question(Resource):
     """Process the PUT request for updating specific a question
     """
     @classmethod
+    @jwt_required()
     def put(cls, questionID):
         #Check if the question description already exists
         #if it exists return an error message
@@ -47,6 +48,7 @@ class Question(Resource):
             return {"message": "Item does not exist."}
         return {"message": "Question with the same decription already exists."}
 
+    @jwt_required()
     def delete(self, questionID):
         #Check if the question really exists
         #if True call the delete method and return a success message

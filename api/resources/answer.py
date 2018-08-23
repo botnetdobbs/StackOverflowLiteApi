@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from api.models.answer import AnswerModel
 from api.models.question import QuestionModel
+from flask_jwt import jwt_required
 
 
 class Answer(Resource):
@@ -30,6 +31,7 @@ class Answer(Resource):
     """Update a specific answer to the question
     """
     @classmethod
+    @jwt_required()
     def put(cls, questionID, answerID):
         data = cls.parser.parse_args()
         #check if the question exists
@@ -49,6 +51,7 @@ class Answer(Resource):
 
     """Delete a specific answer to the question
     """
+    @jwt_required()
     def delete(self, questionID, answerID):
         question = QuestionModel.find_by_id(questionID)
         if question:
@@ -71,6 +74,7 @@ class AnswerList(Resource):
     )
 
     @classmethod
+    @jwt_required()
     def post(cls, questionID):
         #Check if the question exists
         #if True create an answer dictionary and pass it 
@@ -102,6 +106,7 @@ class AnswerUpVote(Resource):
         #Check if the question exists
         #if True create an answer object and upvote it
         #else return error messages
+    @jwt_required()
     def put(self, questionID, answerID):
         question = QuestionModel.find_by_id(questionID)
         if question:
@@ -113,6 +118,7 @@ class AnswerUpVote(Resource):
             return {"message": "Cannot upvote answer for a non-existing question."}
 
 class AnswerDownVote(Resource):
+    @jwt_required()
     def put(self, questionID, answerID):
         # parser = reqparse.RequestParser()
         # parser.add_argument('downvote', 
