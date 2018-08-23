@@ -37,6 +37,19 @@ class AnswerModel:
                     return cls(answer[3], answer[0])
                 else:
                     return None
+    
+    """Find if an answer already generated
+    """
+    @classmethod
+    def find_by_answer(cls, questionID, answer):
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM answers WHERE answer = %s AND question_id = %s", (answer, questionID))
+                answer = cursor.fetchone()
+                if answer:
+                    return True
+                else:
+                    return None
 
     """Get answer/s to the question in the questions list
     """

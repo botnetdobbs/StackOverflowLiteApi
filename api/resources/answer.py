@@ -82,11 +82,11 @@ class AnswerList(Resource):
         #else return error messages
         data = cls.parser.parse_args()
         if QuestionModel.find_by_id(questionID):
-            # if not AnswerModel.find_by_description(questionID, data['answer'])
-            answer = AnswerModel(data["answer"])
-            if answer.add_answer(questionID):
-                return {"message": "Answer inserted successfully"}
-            # return {"message": "The answer already exists"}
+            if not AnswerModel.find_by_answer(questionID, data['answer']):
+                answer = AnswerModel(data["answer"])
+                if answer.add_answer(questionID):
+                    return {"message": "Answer inserted successfully"}
+            return {"message": "The answer already exists"}
 
         return {"message": "You cannot answer a non-existing question"}, 403
 
