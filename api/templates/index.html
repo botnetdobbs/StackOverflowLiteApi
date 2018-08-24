@@ -30,14 +30,34 @@
 </head>
 <body>
     <div class="container">
-        <h1>StackOverflowLiteAPI</h1> 
-        Testing only available through Postman. 
+        <h1>StackOverflowLiteAPI</h1>  
+        <p>StackOverflowLiteApi is a question and answers platform API</p>
+
+        <p>Testing only available through <a href="https://www.getpostman.com">Postman</a>.</p>
+        
+        <h4>Create <a href="http://blog.getpostman.com/2014/02/20/using-variables-inside-postman-and-collection-runner/">Variables</a> for your requests to avoid typing the long urls</h4>
+        
+            <h4>On the POST endpoint for login, go to the "tests" tab and add thie following</h4>
+        </ul>
+        
+        <pre><code class="javascript language-javascript">const jsonData = JSON.parse(responseBody);
+        postman.setEnvironmentVariable("jwt_token", jsonData.access_token);
+        </code></pre>
+        
+        <h4>That {{jwt_token}} variable created is being populated with the access token. Now go to the necessary endpoints endpoints
+            and set up the headers</h4>
+        
+        <pre><code>Key: Authorization
+Value: JWT {{jwt_token}}
+        </code></pre>
+        
+        <h2 id="endpointstotheapi">Endpoints to the API</h2>
         <h3>1. Posting a question</h3>
-        <p> - POST https://zstackoverflowliteapi.herokuapp.com/api/v1/questions_</p>
+        <p> - POST https://zstackoverflowliteapi.herokuapp.com/api/v1/questions</p>
         <h3>2. Fetch all questions</h3>
-        <p> - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/questions_</p>
+        <p> - GET https://zstackoverflowliteapi.herokuapp.com/api/v1/questions</p>
         <h3>3. Fetch a specific question</h3>
-        <p> - GET _https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID></p>
+        <p> - GET https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID></p>
         <h3>4. Edit a specific question</h3>
         <p> - PUT https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID></p>
         <h3>5. Delete a specific question</h3>
@@ -53,7 +73,6 @@
         <h3>10. Delete a specific answer from a specific question</h3>
         <p> - DELETE https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID>/answers<'int:answerID></p>
         
-        <p>NB:- You can save yourself the burden of typing the long urls using Postman <a href="http://blog.getpostman.com/2014/02/20/using-variables-inside-postman-and-collection-runner/">Variables</a></p>
     </div>
 </body>
 </html>

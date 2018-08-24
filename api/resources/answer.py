@@ -113,7 +113,9 @@ class AnswerUpVote(Resource):
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
                 answer.upvote(questionID)
-                return {"message": "Answer upvoted successfully"} 
+                return {"message": "Answer upvoted successfully"}
+            else:
+                return {"message": "Cannot upvote for a non-existing answer."} 
         else:
             return {"message": "Cannot upvote answer for a non-existing question."}
 
@@ -132,6 +134,8 @@ class AnswerDownVote(Resource):
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
                 answer.downvote(questionID)
-                return {"message": "Answer downvoted successfully"} 
+                return {"message": "Answer downvoted successfully"}
+            else:
+                return {"message": "Cannot downvote for a non-existing answer."}
         else:
-            return {"message": "Cannot upvote answer for a non-existing question."}
+            return {"message": "Cannot downvote answer for a non-existing question."}
