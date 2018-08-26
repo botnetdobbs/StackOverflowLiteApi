@@ -1,12 +1,15 @@
 # from psycopg2 import pool
 import psycopg2
 import os
+from urllib.parse import urlparse
 
-user = os.environ.get('DATABASE_USER') or 'postgres'
-password = os.environ.get('DATABASE_PASSWORD') or 'xbt3ybot9'
-database = os.environ.get('DATABASE_NAME') or 'stackoverflowliteapi'
-host = os.environ.get('DATABASE_URL') or 'localhost'
+result = urlparse(os.environ.get('DATABASE_URL'))
+username = result.username
+password = result.password
+database = result.path[1:]
+hostname = result.hostname
+
 
 
 def connect():
-    return psycopg2.connect(user=user, password=password, database=database, host=host)
+    return psycopg2.connect(user=username, password=password, database=database, host=hostname)

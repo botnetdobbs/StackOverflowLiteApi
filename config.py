@@ -6,6 +6,7 @@ class BaseConfig:
     DEBUG = False
     SECRET_KEY = "xb1xc3xb9xf1xc4xf3x94xf8xe3xb4x14xa1xdbx1axb9fx1dx8bxb9Oxd1xe7x9aPxd7xbbxe5"
     DEVELOPMENT = False
+    DATABASE_URL = os.environ['DATABASE_URL']
 
 class DevelopmentConfig(BaseConfig):
     DEBUG = True
