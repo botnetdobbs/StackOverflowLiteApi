@@ -22,11 +22,11 @@ class Answer(Resource):
             #Check for answer, returns an object
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
-                return answer.json()
+                return AnswerModel.find_descriptive_single_answer(answerID), 200
             else:
-                return {"message": "Answer not found."}
+                return {"message": "Answer not found."}, 404
         else:
-            return {"message": "Cannot get answer for a non-existing question"}
+            return {"message": "Cannot get answer for a non-existing question"},403
 
     """Update a specific answer to the question
     """
@@ -43,11 +43,11 @@ class Answer(Resource):
             if answer:
                 answer.answer = data['answer']
                 if answer.update(questionID):
-                    return {"message": "Your answer updated successfully"}
+                    return {"message": "Your answer updated successfully"}, 200
             else:
-                return {"message": "Answer not found."}
+                return {"message": "Cannot update a non-existing answer."}, 403
         else:
-            return {"message": "Cannot update answer for a non-existing question."}
+            return {"message": "Cannot update answer for a non-existing question."}, 403
 
     """Delete a specific answer to the question
     """
@@ -58,11 +58,11 @@ class Answer(Resource):
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
                 answer.delete(questionID)
-                return {"message": "Answer deleted successfully"} 
+                return {"message": "Answer deleted successfully"}, 200
             else:
-                return {"message": "Answer already deleted or does not exist.!"}
+                return {"message": "Answer already deleted or does not exist."}, 403
         else:
-            return {"message": "Cannot delete answer for a non-existing question."}
+            return {"message": "Cannot delete answer for a non-existing question."}, 403
 
 
 class AnswerList(Resource):
@@ -85,8 +85,8 @@ class AnswerList(Resource):
             if not AnswerModel.find_by_answer(questionID, data['answer']):
                 answer = AnswerModel(data["answer"])
                 if answer.add_answer(questionID):
-                    return {"message": "Answer inserted successfully"}
-            return {"message": "The answer already exists"}
+                    return {"message": "Answer inserted successfully"}, 201
+            return {"message": "The answer already exists"}, 403
 
         return {"message": "You cannot answer a non-existing question"}, 403
 
@@ -98,8 +98,8 @@ class AnswerList(Resource):
             answers = AnswerModel.get_answers(questionID)
             if answers:
                 return answers
-            return {"message": "There are no answers for this question"}
-        return {"message": "You can't find answers for a non existing question"}
+            return {"message": "There are no answers for this question"}, 404
+        return {"message": "You can't find answers for a non existing question"}, 403
 
 
 class AnswerUpVote(Resource):
@@ -113,11 +113,11 @@ class AnswerUpVote(Resource):
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
                 answer.upvote(questionID)
-                return {"message": "Answer upvoted successfully"}
+                return {"message": "Answer upvoted successfully"}, 200
             else:
-                return {"message": "Cannot upvote for a non-existing answer."} 
+                return {"message": "Cannot upvote for a non-existing answer."} , 403
         else:
-            return {"message": "Cannot upvote answer for a non-existing question."}
+            return {"message": "Cannot upvote answer for a non-existing question."}, 403
 
 class AnswerDownVote(Resource):
     @jwt_required()
@@ -134,8 +134,8 @@ class AnswerDownVote(Resource):
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
                 answer.downvote(questionID)
-                return {"message": "Answer downvoted successfully"}
+                return {"message": "Answer downvoted successfully"}, 200
             else:
-                return {"message": "Cannot downvote for a non-existing answer."}
+                return {"message": "Cannot downvote for a non-existing answer."}, 403
         else:
-            return {"message": "Cannot downvote answer for a non-existing question."}
+            return {"message": "Cannot downvote answer for a non-existing question."}, 403

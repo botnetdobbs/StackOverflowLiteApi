@@ -1,8 +1,5 @@
 from api.db import connect
 
-#Declare the data structure to store our questions and answers (List)
-questions = []
-
 class QuestionModel:
 
     """Initialise the Model class with the _id being
@@ -39,12 +36,31 @@ class QuestionModel:
     def find_by_description(cls, description):
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM questions WHERE description = %s", (description,))
+                cursor.execute("""SELECT * FROM questions 
+                                WHERE description = %s""", (description,))
                 question = cursor.fetchone()
                 if question:
                     return True
                 else:
                     return None
+
+    """Get a specific question and also the parent user
+    """    
+    @classmethod
+    def find_descriptive_single_question(cls, questionID):
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("""SELECT questions.id, questions.title, 
+                                questions.description, users.username FROM questions
+                                INNER JOIN users ON users.id  = questions.user_id
+                                WHERE questions.id = %s""", (questionID,))
+                question = cursor.fetchone()
+                if question:
+                    data = {"id": question[0], 
+                            "title": question[1], 
+                            "description": question[2], 
+                            "author": question[3]}
+                    return data
 
     """Get all questions from the questions table
     """
@@ -64,7 +80,7 @@ class QuestionModel:
                                         "user_id":q[1], 
                                         "title": q[2], 
                                         "description": q[3]})
-                    return {"questions": quest}
+                    return quest
                 else:
                     return None
             
@@ -74,7 +90,10 @@ class QuestionModel:
     def save(self, user_id):
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute("INSERT INTO questions(user_id, title, description) VALUES(%s, %s, %s)", (user_id, self.title, self.description))
+                cursor.execute("""INSERT INTO questions
+                                (user_id, title, description) 
+                                VALUES(%s, %s, %s, %s)""", 
+                                (user_id, self.title, self.description))
                 return {"message": "Question created successfully."}  
 
     """Update the question in the questions table
@@ -84,7 +103,9 @@ class QuestionModel:
         #else, return False
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute("UPDATE questions SET title=%s, description=%s WHERE id=%s", (self.title, self.description, self.id))
+                cursor.execute("""UPDATE questions 
+                                SET title=%s, description=%s WHERE id=%s""", 
+                                (self.title, self.description, self.id))
                 return True
 
     """Delete the question in the questions table
