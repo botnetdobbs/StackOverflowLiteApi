@@ -2,6 +2,8 @@ import pytest
 from api.models.question import QuestionModel, questions
 from tests.main import reset_question
 
+reset_question()
+
 def test_new_question_item():
     """
     GIVEN a Question model
