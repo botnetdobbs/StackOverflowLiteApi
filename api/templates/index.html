@@ -72,6 +72,18 @@ Value: JWT {{jwt_token}}
         <p> - PUT https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID>/answers<'int:answerID></p>
         <h3>10. Delete a specific answer from a specific question</h3>
         <p> - DELETE https://zstackoverflowliteapi.herokuapp.com/api/v1/questions/<'int:questionID>/answers<'int:answerID></p>
+
+        <h3>11. Upvote a question</h3>
+        <p>- PUT http://127.0.0.1:5000/api/v1/questions/<'int:questionID>/answers/<'int:answerID>/upvote</p>
+
+        <h3>12. Downvote a question</h3>
+        <p>- PUT http://127.0.0.1:5000/api/v1/questions/<'int:questionID>>/answers/<'int:answerID>/downvote</p>
+
+        <h3>11. Register as a user</h3>
+        <p>- PUT http://127.0.0.1:5000/api/v1/auth/register</p>
+
+        <h3>11. Login as a user</h3>
+        <p>- PUT http://127.0.0.1:5000/api/v1/auth/login</p>
         
     </div>
 </body>
