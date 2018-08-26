@@ -2,7 +2,6 @@ import pytest
 
 from api.models.answer import AnswerModel
 from api.models.question import QuestionModel
-from tests.main import reset_question
 
 def test_new_answer_item():
     """
@@ -21,20 +20,35 @@ def test_answer_json():
 
 def test_save_answer():
     new_question = QuestionModel('My simple title', 'My simple question')
-    new_question.save()
-    samp_answer = {"answer": "My simple answer"}
-    AnswerModel.add_answer(1, samp_answer)
-    reset_question()
+    new_question.save(1)
+    samp_answer = AnswerModel("This is my sample answer")
+    samp_answer.add_answer(1)
 
 def test_answer_find_by_id():
     new_question = QuestionModel('My simple title', 'My simple question')
-    new_question.save()
-    samp_answer = {"answer": "My simple answer"}
-    AnswerModel.add_answer(1, samp_answer)
+    new_question.save(1)
+    samp_answer = AnswerModel("My sample answer")
+    samp_answer.add_answer(1)
 
     answer = AnswerModel.find_by_id(1, 1)
     assert answer.answer == "My simple answer"
-    reset_question()
 
 def test_for_non_existing_question():
     assert AnswerModel.get_answers(1) == {"message": "Question does not exist."}
+
+def test_update():
+    new_question = QuestionModel('My simple title', 'My simple question')
+    new_question.save(1)
+    samp_answer = AnswerModel("This is my sample answer")
+    samp_answer.add_answer(1)
+    new_answer = AnswerModel.find_by_id(1, 1)
+    new_answer.answer = 'This is my new answer'
+    assert new_answer.update(1) == True
+
+def test_delete():
+    new_question = QuestionModel('My simple title', 'My simple question')
+    new_question.save(1)
+    samp_answer = AnswerModel("This is my sample answer")
+    samp_answer.add_answer(1)
+    answer = AnswerModel.find_by_id(1, 1)
+    assert answer.delete(1) == True

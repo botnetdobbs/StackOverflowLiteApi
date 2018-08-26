@@ -1,6 +1,5 @@
 import pytest
 from api.models.question import QuestionModel, questions
-from tests.main import reset_question
 
 def test_new_question_item():
     """
@@ -20,22 +19,45 @@ def test_question_find_by_id():
     Then a new object should be returned, check if the fields are correct
     """
     new_question = QuestionModel('This is a sample 1 title', 'This is a sample 1 description')
-    new_question.save()
+    new_question.save(1)
     #It's the first to be stored hence id == 1
     question = QuestionModel.find_by_id(1)
     assert question.title == 'This is a sample 1 title'
 
     new_question1 = QuestionModel('This is a sample 2 title', 'This is a sample 2 description')
-    new_question1.save()
+    new_question1.save(1)
     
     question1 = QuestionModel.find_by_id(2)
     assert question1.title == 'This is a sample 2 title'
-    reset_question()
+
+def test_question_find_by_description():
+    """
+    Given a new question saved
+    When a query is called by description
+    Then a boolean is returned, check if the fields are correct
+    """
+    new_question = QuestionModel('This is a sample 1 title', 'This is a sample 1 description')
+    new_question.save(1)
+    #It's the first to be stored hence id == 1
+    question = QuestionModel.find_by_description('This is a sample 1 description')
+    assert question == True
+
 
 def test_json():
     my_question = QuestionModel('Json title', 'Json description')
-    my_question.save()
+    my_question.save(1)
 
     question_query = QuestionModel.find_by_id(1)
     assert question_query.json() == {"title": 'Json title', "description": 'Json description'}
-    reset_question()
+
+def test_delete():
+    """
+    GIVEN a new question saved
+    WHEN a new query is passed for deletion
+    THEN it should return True
+    """
+    new_question = QuestionModel('This is a sample title', 'This is a sample description')
+    new_question.save(1)
+
+    question = QuestionModel.find_by_id(1)
+    assert question.delete == True

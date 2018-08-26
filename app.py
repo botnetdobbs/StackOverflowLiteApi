@@ -5,4 +5,4 @@ i.e if the file is run, the flask app will start,
 but if another file that imports app runs then it will not start
 """
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5000)

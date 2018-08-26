@@ -44,7 +44,7 @@ class UserModel:
         #It will automatically commit and close the connection
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM users WHERE id = %d", (user_id,))
+                cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
                 user = cursor.fetchone()
                 return cls(user[1], user[2], user[0])
 

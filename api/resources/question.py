@@ -20,9 +20,9 @@ class Question(Resource):
         #Check if question exists
         #if true(returns an object) return it
         #else, return an error message
-        question = QuestionModel.find_by_id(questionID)
+        question = QuestionModel.find_descriptive_single_question(questionID)
         if question:
-            return question.json(), 200
+            return question, 200
         return {"message": "Question not available."}, 404
 
     """Process the PUT request for updating specific a question
@@ -43,10 +43,10 @@ class Question(Resource):
                 updated_question = QuestionModel(data['title'], data['description'], question.id)
                 #Update and return json data
                 if updated_question.update():
-                    return updated_question.json()
-                return {"message": "Item could not be updated"}
-            return {"message": "Item does not exist."}
-        return {"message": "Question with the same decription already exists."}
+                    return QuestionModel.find_descriptive_single_question(questionID), 200
+                return {"message": "Question could not be updated."}, 500
+            return {"message": "You can't edit a non-existing question."}, 403
+        return {"message": "Question with the same decription already exists."}, 403
 
     @jwt_required()
     def delete(self, questionID):
@@ -56,10 +56,10 @@ class Question(Resource):
         question = QuestionModel.find_by_id(questionID)
         if question:
             if question.delete():
-                return {"message": "Question deleted successfully."}
+                return {"message": "Question deleted successfully."}, 200
             else:
-                return {"message": "Question not deleted."}
-        return {"message": "Question does not exist."}
+                return {"message": "Question not deleted."}, 500
+        return {"message": "The question is not available or it was already deleted."}, 403
 
 class QuestionList(Resource):
     parser = reqparse.RequestParser()
@@ -90,7 +90,7 @@ class QuestionList(Resource):
         #return an error message if it exists
         #else, save the new question and return a response
         if QuestionModel.find_by_description(data['description']):
-            return {"message": "The question is already asked"}
+            return {"message": "The question is already asked"}, 403
 
         #Create a question object and pass the arguments
         question = QuestionModel(data["title"], data["description"])
@@ -106,8 +106,8 @@ class QuestionList(Resource):
         #else, return an error message
         response = QuestionModel.all()
         if response:
-            return response
+            return response, 200
 
-        return {"message": "No questions found!"}
+        return {"message": "No questions found!"}, 404
 
         

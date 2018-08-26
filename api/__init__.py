@@ -6,32 +6,33 @@ from api.resources.answer import Answer, AnswerList, AnswerUpVote, AnswerDownVot
 from api.resources.user import UserRegister
 
 from api.verify import authenticate, identity
+from api.create_tables import create_tables
 
 from flask_jwt import JWT
 
 
 app = Flask(__name__)
-
-app.secret_key = 'xbt3ybot9'
+app.config.from_object('config.DevelopmentConfig')
+create_tables()
 api = Api(app)
 #Custom authentification endpoint
-app.config['JWT_AUTH_URL_RULE'] = '/api/v1/auth/login'
+app.config['JWT_AUTH_URL_RULE'] = '/api/v2/auth/login'
 #Custom jwt timeout token to expire after an hour
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=3600)
 
 jwt = JWT(app, authenticate, identity) # Createa a new endpoint (/auth) default. Overriden above
 #Register the resources
-api.add_resource(QuestionList, '/api/v1/questions')
-api.add_resource(Question, '/api/v1/questions/<int:questionID>')
+api.add_resource(QuestionList, '/api/v2/questions')
+api.add_resource(Question, '/api/v2/questions/<int:questionID>')
 
-api.add_resource(AnswerList, '/api/v1/questions/<int:questionID>/answers')
-api.add_resource(Answer, '/api/v1/questions/<int:questionID>/answers/<int:answerID>')
+api.add_resource(AnswerList, '/api/v2/questions/<int:questionID>/answers')
+api.add_resource(Answer, '/api/v2/questions/<int:questionID>/answers/<int:answerID>')
 #Endpoint for upvote
-api.add_resource(AnswerUpVote, '/api/v1/questions/<int:questionID>/answers/<int:answerID>/upvote')
+api.add_resource(AnswerUpVote, '/api/v2/questions/<int:questionID>/answers/<int:answerID>/upvote')
 #Endpoint for downvote
-api.add_resource(AnswerDownVote, '/api/v1/questions/<int:questionID>/answers/<int:answerID>/downvote')
+api.add_resource(AnswerDownVote, '/api/v2/questions/<int:questionID>/answers/<int:answerID>/downvote')
 
-api.add_resource(UserRegister, '/api/v1/auth/register')
+api.add_resource(UserRegister, '/api/v2/auth/register')
 
 @app.route('/')
 def home():
