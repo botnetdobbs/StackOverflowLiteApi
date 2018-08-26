@@ -30,9 +30,34 @@ def test_question_find_by_id():
     question1 = QuestionModel.find_by_id(2)
     assert question1.title == 'This is a sample 2 title'
 
+def test_question_find_by_description():
+    """
+    Given a new question saved
+    When a query is called by description
+    Then a boolean is returned, check if the fields are correct
+    """
+    new_question = QuestionModel('This is a sample 1 title', 'This is a sample 1 description')
+    new_question.save(1)
+    #It's the first to be stored hence id == 1
+    question = QuestionModel.find_by_description('This is a sample 1 description')
+    assert question == True
+
+
 def test_json():
     my_question = QuestionModel('Json title', 'Json description')
     my_question.save(1)
 
     question_query = QuestionModel.find_by_id(1)
     assert question_query.json() == {"title": 'Json title', "description": 'Json description'}
+
+def test_delete():
+    """
+    GIVEN a new question saved
+    WHEN a new query is passed for deletion
+    THEN it should return True
+    """
+    new_question = QuestionModel('This is a sample title', 'This is a sample description')
+    new_question.save(1)
+
+    question = QuestionModel.find_by_id(1)
+    assert question.delete == True
