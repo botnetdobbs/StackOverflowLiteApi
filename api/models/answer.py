@@ -91,10 +91,10 @@ class AnswerModel:
                     for answer in answers:
                         answ.append({"id": answer[0], 
                                     "question_id":answer[1], 
-                                    "answer": answer[3], 
-                                    "upvotes": answer[4],
-                                    "downvotes": answer[5],
-                                    "solved": answer[6]})
+                                    "answer": answer[2], 
+                                    "upvotes": answer[3],
+                                    "downvotes": answer[4],
+                                    "solved": answer[5]})
                     return answ
                 return None
 
