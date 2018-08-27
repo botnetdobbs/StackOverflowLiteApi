@@ -92,7 +92,7 @@ class QuestionModel:
             with connection.cursor() as cursor:
                 cursor.execute("""INSERT INTO questions
                                 (user_id, title, description) 
-                                VALUES(%s, %s, %s, %s)""", 
+                                VALUES(%s, %s, %s)""", 
                                 (user_id, self.title, self.description))
                 return {"message": "Question created successfully."}  
 
