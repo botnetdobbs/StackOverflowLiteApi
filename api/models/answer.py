@@ -62,7 +62,7 @@ class AnswerModel:
         with connect() as connection:
             with connection.cursor() as cursor:
                 cursor.execute("""SELECT answers.id, questions.id,
-                                answers.answer, answers.upvote, answers.downvote FROM answers
+                                answers.answer, answers.upvote, answers.downvote, answers.solved FROM answers
                                 INNER JOIN questions ON questions.id  = answers.question_id
                                 WHERE answers.id = %s""", (answerID,))
                 question = cursor.fetchone()
@@ -71,7 +71,8 @@ class AnswerModel:
                             "question_id": question[1], 
                             "answer": question[2], 
                             "upvotes": question[3],
-                            "downvotes": question[4]}
+                            "downvotes": question[4],
+                            "solved": question[5]}
                     return data
 
     """Get answer/s to the question in the questions list
@@ -92,7 +93,8 @@ class AnswerModel:
                                     "question_id":answer[1], 
                                     "answer": answer[3], 
                                     "upvotes": answer[4],
-                                    "downvotes": answer[5]})
+                                    "downvotes": answer[5],
+                                    "solved": answer[6]})
                     return answ
                 return None
 
@@ -133,6 +135,17 @@ class AnswerModel:
             with connection.cursor() as cursor:
                 cursor.execute("""UPDATE answers 
                                 SET downvote = downvote + %s 
+                                WHERE id=%s AND question_id=%s""", 
+                                (1, self.id, questionID))
+                return True
+    
+    """Mark the answer as solved
+    """
+    def solve(self, questionID):
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("""UPDATE answers 
+                                SET solved = %s 
                                 WHERE id=%s AND question_id=%s""", 
                                 (1, self.id, questionID))
                 return True

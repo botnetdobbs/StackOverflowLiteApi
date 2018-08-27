@@ -139,3 +139,18 @@ class AnswerDownVote(Resource):
                 return {"message": "Cannot downvote for a non-existing answer."}, 403
         else:
             return {"message": "Cannot downvote answer for a non-existing question."}, 403
+    
+class SolveAnswer(Resource):
+    @jwt_required()
+    def put(self, questionID, answerID):
+
+        question = QuestionModel.find_by_id(questionID)
+        if question:
+            answer = AnswerModel.find_by_id(questionID, answerID)
+            if answer:
+                answer.solve(questionID)
+                return {"message": "Answer marked as solution successfully"}, 200
+            else:
+                return {"message": "Cannot mark a non-existing answer as a solution."}, 403
+        else:
+            return {"message": "Cannot solve a non-existing question."}, 403
