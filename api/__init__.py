@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify
 from flask_restful import Api
 from datetime import timedelta
 from api.resources.question import Question, QuestionList
-from api.resources.answer import Answer, AnswerList, AnswerUpVote, AnswerDownVote
+from api.resources.answer import Answer, AnswerList, AnswerUpVote, AnswerDownVote, SolveAnswer
 from api.resources.user import UserRegister
 
 from api.verify import authenticate, identity
@@ -31,6 +31,7 @@ api.add_resource(Answer, '/api/v2/questions/<int:questionID>/answers/<int:answer
 api.add_resource(AnswerUpVote, '/api/v2/questions/<int:questionID>/answers/<int:answerID>/upvote')
 #Endpoint for downvote
 api.add_resource(AnswerDownVote, '/api/v2/questions/<int:questionID>/answers/<int:answerID>/downvote')
+api.add_resource(SolveAnswer, '/api/v2/questions/<int:questionID>/answers/<int:answerID>/solved')
 
 api.add_resource(UserRegister, '/api/v2/auth/register')
 
