@@ -86,9 +86,9 @@ class AnswerList(Resource):
                 answer = AnswerModel(data["answer"])
                 if answer.add_answer(questionID):
                     return {"message": "Answer inserted successfully"}, 201
-            return {"message": "The answer already exists"}, 403
+            return {"message": "The answer already exists"}, 409
 
-        return {"message": "You cannot answer a non-existing question"}, 403
+        return {"message": "You cannot answer a non-existing question"}, 422
 
     def get(self, questionID):
         #Check if the question exists
@@ -98,8 +98,8 @@ class AnswerList(Resource):
             answers = AnswerModel.get_answers(questionID)
             if answers:
                 return answers
-            return {"message": "There are no answers for this question"}, 404
-        return {"message": "You can't find answers for a non existing question"}, 403
+            return {"message": "There are no answers for this question"}, 422 #Unprocessable entity
+        return {"message": "You can't find answers for a non existing question"}, 422 # Unp0rocessable entity
 
 
 class AnswerUpVote(Resource):
@@ -113,11 +113,11 @@ class AnswerUpVote(Resource):
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
                 answer.upvote(questionID)
-                return {"message": "Answer upvoted successfully"}, 200
+                return {"message": "Answer upvoted successfully"}, 201 #Created
             else:
-                return {"message": "Cannot upvote for a non-existing answer."} , 403
+                return {"message": "Cannot upvote for a non-existing answer."} , 422 #Unprocessable entity
         else:
-            return {"message": "Cannot upvote answer for a non-existing question."}, 403
+            return {"message": "Cannot upvote answer for a non-existing question."}, 422 #Unprocessable entity
 
 class AnswerDownVote(Resource):
     @jwt_required()
@@ -134,11 +134,11 @@ class AnswerDownVote(Resource):
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
                 answer.downvote(questionID)
-                return {"message": "Answer downvoted successfully"}, 200
+                return {"message": "Answer downvoted successfully"}, 201 #Created
             else:
-                return {"message": "Cannot downvote for a non-existing answer."}, 403
+                return {"message": "Cannot downvote for a non-existing answer."}, 422 #Unprocessable entity
         else:
-            return {"message": "Cannot downvote answer for a non-existing question."}, 403
+            return {"message": "Cannot downvote answer for a non-existing question."}, 422 #Unprocessable entity
     
 class SolveAnswer(Resource):
     @jwt_required()
@@ -149,8 +149,8 @@ class SolveAnswer(Resource):
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
                 answer.solve(questionID)
-                return {"message": "Answer marked as solution successfully"}, 200
+                return {"message": "Answer marked as solution successfully"}, 201 #Created
             else:
-                return {"message": "Cannot mark a non-existing answer as a solution."}, 403
+                return {"message": "Cannot mark a non-existing answer as a solution."}, 422 #Unprocessable entity
         else:
-            return {"message": "Cannot solve a non-existing question."}, 403
+            return {"message": "Cannot solve a non-existing question."}, 422 #Unprocessable entity
