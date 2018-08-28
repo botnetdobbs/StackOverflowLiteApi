@@ -1,17 +1,17 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, inputs
 from api.models.question import QuestionModel
 from flask_jwt import current_identity, jwt_required
 
 class Question(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('title', 
-        type = str,
+        type = inputs.regex('[a-z]+'),
         required = True,
         help = 'The title field is required.'
     )
     
     parser.add_argument('description',
-        type = str,
+        type = inputs.regex('[a-z]+'),
         required = True,
         help = 'The description field is required.'
     )
@@ -23,7 +23,7 @@ class Question(Resource):
         question = QuestionModel.find_descriptive_single_question(questionID)
         if question:
             return question, 200
-        return {"message": "Question not available."}, 404
+        return {"message": "Question not available."}, 422
 
     """Process the PUT request for updating specific a question
     """
@@ -44,9 +44,9 @@ class Question(Resource):
                 #Update and return json data
                 if updated_question.update():
                     return QuestionModel.find_descriptive_single_question(questionID), 200
-                return {"message": "Question could not be updated."}, 500
-            return {"message": "You can't edit a non-existing question."}, 403
-        return {"message": "Question with the same decription already exists."}, 403
+                return {"message": "Question could not be updated."}, 409
+            return {"message": "You can't edit a non-existing question."}, 422
+        return {"message": "Question with the same decription already exists."}, 422
 
     @jwt_required()
     def delete(self, questionID):
@@ -56,10 +56,10 @@ class Question(Resource):
         question = QuestionModel.find_by_id(questionID)
         if question:
             if question.delete():
-                return {"message": "Question deleted successfully."}, 200
+                return {"message": "Question deleted successfully."}, 201
             else:
-                return {"message": "Question not deleted."}, 500
-        return {"message": "The question is not available or it was already deleted."}, 403
+                return {"message": "Question not deleted."}, 409 #Confilict
+        return {"message": "The question is not available or it was already deleted."}, 422 #Unprocessable entity
 
 class QuestionList(Resource):
     parser = reqparse.RequestParser()
@@ -90,7 +90,7 @@ class QuestionList(Resource):
         #return an error message if it exists
         #else, save the new question and return a response
         if QuestionModel.find_by_description(data['description']):
-            return {"message": "The question is already asked"}, 403
+            return {"message": "The question is already asked"}, 409 # Conflict(Duplicate)
 
         #Create a question object and pass the arguments
         question = QuestionModel(data["title"], data["description"])
@@ -108,6 +108,6 @@ class QuestionList(Resource):
         if response:
             return response, 200
 
-        return {"message": "No questions found!"}, 404
+        return {"message": "No questions found!"}, 422 #Unprocessable entity
 
         
