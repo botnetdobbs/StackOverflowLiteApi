@@ -11,6 +11,7 @@ def create_tables():
         """CREATE TABLE IF NOT EXISTS users (
                             id serial PRIMARY KEY,
                             username character varying(60) NOT NULL,
+                            email character varying(60) NOT NULL,
                             password character varying(255) NOT NULL
                             )
                             """,

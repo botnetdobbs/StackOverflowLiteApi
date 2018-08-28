@@ -5,15 +5,15 @@ from flask_jwt import current_identity, jwt_required
 class Question(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('title', 
-        type = inputs.regex('[a-z]+'),
+        type = inputs.regex('[a-zA-Z0-9]'),
         required = True,
-        help = 'The title field is required.'
+        help = 'Invalid question title.'
     )
     
     parser.add_argument('description',
-        type = inputs.regex('[a-z]+'),
+        type = inputs.regex('[a-zA-Z0-9]'),
         required = True,
-        help = 'The description field is required.'
+        help = 'Invalid question description.'
     )
 
     def get(self, questionID):
@@ -64,15 +64,15 @@ class Question(Resource):
 class QuestionList(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('title', 
-        type = str,
+        type = inputs.regex('[a-zA-Z0-9]'),
         required = True,
-        help = 'The title field is required.'
+        help = 'Invalid question title.'
     )
     
     parser.add_argument('description',
-        type = str,
+        type = inputs.regex('[a-zA-Z0-9]'),
         required = True,
-        help = 'The description field is required.'
+        help = 'Invalid question description.'
     )
 
     """Process the POST request for adding a question
