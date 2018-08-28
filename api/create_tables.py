@@ -5,7 +5,10 @@ from api.db import connect
 def create_tables():
     """ create tables in the PostgreSQL database"""
     commands = (
-        """CREATE TABLE IF NOT EXISTS users(
+        "CREATE SCHEMA IF NOT EXISTS public",
+        "GRANT ALL ON SCHEMA public TO postgres",
+        "GRANT ALL ON SCHEMA public TO public",
+        """CREATE TABLE IF NOT EXISTS users (
                             id serial PRIMARY KEY,
                             username character varying(60) NOT NULL,
                             password character varying(255) NOT NULL
@@ -27,6 +30,7 @@ def create_tables():
                             answer TEXT NOT NULL,
                             upvote INT DEFAULT 0,
                             downvote INT DEFAULT 0,
+                            solved INT DEFAULT 0,
                             FOREIGN KEY (question_id) 
                             REFERENCES questions (id)
                             ON DELETE CASCADE ON UPDATE CASCADE)
@@ -37,5 +41,5 @@ def create_tables():
                 cursor.execute(command)
  
  
-# if __name__ == '__main__':
-#     create_tables()
+if __name__ == '__main__':
+    create_tables()
