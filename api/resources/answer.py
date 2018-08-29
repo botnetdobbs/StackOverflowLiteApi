@@ -24,9 +24,9 @@ class Answer(Resource):
             if answer:
                 return AnswerModel.find_descriptive_single_answer(answerID), 200
             else:
-                return {"message": "Answer not found."}, 404
+                return {"message": "Answer not found."}, 422
         else:
-            return {"message": "Cannot get answer for a non-existing question"},403
+            return {"message": "Cannot get answer for a non-existing question"},422
 
     """Update a specific answer to the question
     """

@@ -7,5 +7,5 @@ def teardown():
             cursor.execute("DROP SCHEMA IF EXISTS public CASCADE")
 
 def create_user():
-    new_user = UserModel('lazarus', 'xbt3ybot9')
+    new_user = UserModel('lazarus', 'test@test.com', 'xbt3ybot9')
     new_user.save()
