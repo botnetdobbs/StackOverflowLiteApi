@@ -2,6 +2,9 @@ language: python
 python: 
 - "3.6"
 
+env:
+- DATABASE_URL=postgresql://postgres@localhost:5432/stackoverflowliteapi
+
 install: 
 - "pip install pytest"
 - "pip install pytest-cov"
