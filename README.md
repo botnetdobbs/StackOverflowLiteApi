@@ -6,7 +6,7 @@ NB: Challenge 2 is in the challenge2 branch
 
 # Usage
 - [Get started here- Challenge 2](https://zstackoverflowliteapi.herokuapp.com)
-- [Get started here- Challenge 3](https://stackoverflowliteapi1.herokuapp.com)
+- [Get started here- Challenge 3](https://zstackoverflowliteapi1.herokuapp.com/)
 
 - clone the Repo `git clone https://github.com/botnetdobbs/StackOverflowLiteApi.git`
 - Install Virtualenv `pip install virtualenv`
@@ -40,6 +40,9 @@ Value: JWT {{jwt_token}}
 
 3. Fetch a specific question
 - GET _http://127.0.0.1:5000/api/v1/questions/<<int:questionID>>_
+
+3. Fetch all questions posted by the currently logged in user
+- GET _http://127.0.0.1:5000/api/v1/user/questions/_
 
 4. Edit a specific question
 - PUT _http://127.0.0.1:5000/api/v1/questions/<<int:questionID>>_
