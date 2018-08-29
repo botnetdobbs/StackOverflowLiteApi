@@ -6,14 +6,12 @@ from api.resources.answer import Answer, AnswerList, AnswerUpVote, AnswerDownVot
 from api.resources.user import UserRegister, UserList
 
 from api.verify import authenticate, identity
-from api.create_tables import create_tables
 
 from flask_jwt import JWT
 
 
 app = Flask(__name__)
 app.config.from_object('config.ProductionConfig')
-create_tables()
 api = Api(app)
 #Custom authentification endpoint
 app.config['JWT_AUTH_URL_RULE'] = '/api/v2/auth/login'
