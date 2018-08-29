@@ -41,3 +41,7 @@ api.add_resource(UserList, '/api/v2/user/questions')
 def home():
     return render_template('index.html')
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return jsonify({"message": "The resource cannot be found"}), 404
+
