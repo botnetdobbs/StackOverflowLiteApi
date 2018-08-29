@@ -6,7 +6,7 @@ NB: Challenge 2 is in the challenge2 branch
 
 # Usage
 - [Get started here- Challenge 2](https://zstackoverflowliteapi.herokuapp.com)
-- [Get started here- Challenge 3](https://zstackoverflowliteapi1.herokuapp.com/)
+- [Get started here- Challenge 3](https://radiant-atoll-76789.herokuapp.com)
 
 - clone the Repo `git clone https://github.com/botnetdobbs/StackOverflowLiteApi.git`
 - Install Virtualenv `pip install virtualenv`
