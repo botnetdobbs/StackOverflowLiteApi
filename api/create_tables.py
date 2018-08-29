@@ -5,7 +5,6 @@ from api.db import connect
 def create_tables():
     """ create tables in the PostgreSQL database"""
     commands = (
-        "CREATE SCHEMA IF NOT EXISTS public",
         "GRANT ALL ON SCHEMA public TO postgres",
         "GRANT ALL ON SCHEMA public TO public",
         """CREATE TABLE IF NOT EXISTS users (

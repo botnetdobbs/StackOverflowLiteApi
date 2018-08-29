@@ -4,7 +4,7 @@ from api.models.user import UserModel
 def teardown():
     with connect() as connection:
         with connection.cursor() as cursor:
-            cursor.execute("DROP SCHEMA IF EXISTS public CASCADE")
+            cursor.execute("TRUNCATE TABLE users RESTART IDENTITY CASCADE")
 
 def create_user():
     new_user = UserModel('lazarus', 'test@test.com', 'xbt3ybot9')
