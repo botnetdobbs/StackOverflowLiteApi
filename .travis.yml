@@ -16,6 +16,7 @@ services:
 before_script:
 - psql -c 'create database stackoverflowliteapi;' -U postgres
 - psql -c "GRANT ALL ON SCHEMA public TO postgres;" -U postgres
+- psql -c "DROP SCHEMA IF EXISTS public;" -U postgres
 
 script: python -m pytest --cov=api/
 
