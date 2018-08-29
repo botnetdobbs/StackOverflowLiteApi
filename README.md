@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/botnetdobbs/StackOverflowLiteApi.svg?branch=master)](https://travis-ci.com/botnetdobbs/StackOverflowLiteApi)    [![Coverage Status](https://coveralls.io/repos/github/botnetdobbs/StackOverflowLiteApi/badge.svg?branch=master)](https://coveralls.io/github/botnetdobbs/StackOverflowLiteApi?branch=master)    [![License: CC0-1.0](https://img.shields.io/badge/License-CC0%201.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
+[![Build Status](https://travis-ci.com/botnetdobbs/StackOverflowLiteApi.svg?branch=master&cacheBuster=1)](https://travis-ci.com/botnetdobbs/StackOverflowLiteApi)    [![Coverage Status](https://coveralls.io/repos/github/botnetdobbs/StackOverflowLiteApi/badge.svg?branch=master&cacheBuster=1)](https://coveralls.io/github/botnetdobbs/StackOverflowLiteApi?branch=master)    [![License: CC0-1.0](https://img.shields.io/badge/License-CC0%201.0-lightgrey.svg)](http://creativecommons.org/publicdomain/zero/1.0/)
 # StackOverflowLiteApi
 StackOverflowLiteApi is a question and answer platform API
 
