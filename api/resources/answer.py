@@ -24,9 +24,9 @@ class Answer(Resource):
             if answer:
                 return AnswerModel.find_descriptive_single_answer(answerID), 200
             else:
-                return {"message": "Answer not found."}, 404
+                return {"message": "Answer not found."}, 422
         else:
-            return {"message": "Cannot get answer for a non-existing question"},403
+            return {"message": "Cannot get answer for a non-existing question"},422
 
     """Update a specific answer to the question
     """
@@ -43,11 +43,11 @@ class Answer(Resource):
             if answer:
                 answer.answer = data['answer']
                 if answer.update(questionID):
-                    return {"message": "Your answer updated successfully"}, 200
+                    return {"message": "Your answer updated successfully"}, 201
             else:
-                return {"message": "Cannot update a non-existing answer."}, 403
+                return {"message": "Cannot update a non-existing answer."}, 422
         else:
-            return {"message": "Cannot update answer for a non-existing question."}, 403
+            return {"message": "Cannot update answer for a non-existing question."}, 422
 
     """Delete a specific answer to the question
     """
@@ -58,11 +58,11 @@ class Answer(Resource):
             answer = AnswerModel.find_by_id(questionID, answerID)
             if answer:
                 answer.delete(questionID)
-                return {"message": "Answer deleted successfully"}, 200
+                return {"message": "Answer deleted successfully"}, 201
             else:
-                return {"message": "Answer already deleted or does not exist."}, 403
+                return {"message": "Answer already deleted or does not exist."}, 422
         else:
-            return {"message": "Cannot delete answer for a non-existing question."}, 403
+            return {"message": "Cannot delete answer for a non-existing question."}, 422
 
 
 class AnswerList(Resource):
