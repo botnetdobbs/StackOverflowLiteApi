@@ -15,7 +15,7 @@ services:
 
 before_script:
 - psql -c 'create database stackoverflowliteapi;' -U postgres
-- python migrate.py
+- psql -c "GRANT ALL ON SCHEMA public TO postgres"-U postgres
 
 script: python -m pytest --cov=api/
 
