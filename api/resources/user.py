@@ -1,12 +1,17 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, inputs
 from api.models.user import UserModel
 
 class UserRegister(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('username',
-        type = str,
+        type = inputs.regex('[a-zA-Z0-9]'),
         required = True,
-        help = "The username field is required"
+        help = "Please enter a valid username"
+    )
+    parser.add_argument('email',
+        type = inputs.regex('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'),
+        required = True,
+        help = 'Invalid email address'
     )
     parser.add_argument('password',
         type = str,
@@ -25,6 +30,6 @@ class UserRegister(Resource):
         if UserModel.get_by_username(data['username']):
             return {"message": "The username already exists"}, 409
 
-        user = UserModel(data['username'], data['password'])
+        user = UserModel(data['username'], data['email'], data['password'])
         user.save()
         return {"message": "User created successfully"}, 201

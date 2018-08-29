@@ -1,4 +1,4 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, inputs
 from api.models.answer import AnswerModel
 from api.models.question import QuestionModel
 from flask_jwt import jwt_required
@@ -7,9 +7,9 @@ from flask_jwt import jwt_required
 class Answer(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('answer', 
-        type = str,
+        type = inputs.regex('[a-zA-Z0-9]'),
         required = True,
-        help = "The answer field is required"
+        help = "Please enter a valid answer."
     )
 
     """Get a specific answer to the question
@@ -68,9 +68,9 @@ class Answer(Resource):
 class AnswerList(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('answer', 
-        type = str,
+        type = inputs.regex('[a-zA-Z0-9]'),
         required = True,
-        help = "The answer field is required"
+        help = "Please enter a valid answer."
     )
 
     @classmethod
