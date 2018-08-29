@@ -12,7 +12,7 @@ from flask_jwt import JWT
 
 
 app = Flask(__name__)
-app.config.from_object('config.ProductionConfig')
+app.config.from_object('config.DevelopmentConfig')
 create_tables()
 api = Api(app)
 #Custom authentification endpoint
