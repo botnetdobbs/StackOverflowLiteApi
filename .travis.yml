@@ -3,7 +3,7 @@ python:
 - "3.6"
 
 env:
-- DATABASE_URL=postgresql://postgres@localhost:5432/stackoverflowliteapi
+- DATABASE_URL=postgresql://postgres@localhost:5432/tests
 
 install: 
 - "pip install pytest"
@@ -12,11 +12,11 @@ install:
 - "pip install coveralls"
 services:
 - postgresql
+addons:
+- postgresql
 
 before_script:
-- psql -c 'create database stackoverflowliteapi;' -U postgres
-- psql -c "GRANT ALL ON SCHEMA public TO postgres;" -U postgres
-- psql -c "DROP SCHEMA IF EXISTS public;" -U postgres
+- psql -c 'create database tests;' -U postgres
 
 script: python -m pytest --cov=api/
 
