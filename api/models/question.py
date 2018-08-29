@@ -44,6 +44,30 @@ class QuestionModel:
                 else:
                     return None
 
+    @classmethod
+    def find_by_user_id(self, userID):
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("""SELECT questions.id, users.username, 
+                                questions.title, questions.description 
+                                FROM questions 
+                                INNER JOIN users ON users.id = questions.user_id
+                                WHERE user_id=%s""", (userID,))
+                questions = cursor.fetchall()
+                #If questions is not None, loop through the questions
+                #append them in the quest list as dictionaries
+                if questions:
+                    #Create an empty list for storing the questions
+                    quest = []
+                    for q in questions:
+                        quest.append({"id": q[0], 
+                                        "author":q[1], 
+                                        "title": q[2], 
+                                        "description": q[3]})
+                    return quest
+                else:
+                    return None
+
     """Get a specific question and also the parent user
     """    
     @classmethod
@@ -68,7 +92,9 @@ class QuestionModel:
     def all(cls):
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute("SELECT * FROM questions")
+                cursor.execute("""SELECT questions.id, questions.title, 
+                                questions.description, users.username FROM questions
+                                INNER JOIN users ON users.id  = questions.user_id""")
                 questions = cursor.fetchall()
                 #If questions is not None, loop through the questions
                 #append them in the quest list as dictionaries
@@ -77,9 +103,9 @@ class QuestionModel:
                     quest = []
                     for q in questions:
                         quest.append({"id": q[0], 
-                                        "user_id":q[1], 
-                                        "title": q[2], 
-                                        "description": q[3]})
+                                        "title":q[1], 
+                                        "description": q[2], 
+                                        "author": q[3]})
                     return quest
                 else:
                     return None

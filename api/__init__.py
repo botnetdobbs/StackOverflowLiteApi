@@ -3,7 +3,7 @@ from flask_restful import Api
 from datetime import timedelta
 from api.resources.question import Question, QuestionList
 from api.resources.answer import Answer, AnswerList, AnswerUpVote, AnswerDownVote, SolveAnswer
-from api.resources.user import UserRegister
+from api.resources.user import UserRegister, UserList
 
 from api.verify import authenticate, identity
 from api.create_tables import create_tables
@@ -34,6 +34,8 @@ api.add_resource(AnswerDownVote, '/api/v2/questions/<int:questionID>/answers/<in
 api.add_resource(SolveAnswer, '/api/v2/questions/<int:questionID>/answers/<int:answerID>/solved')
 
 api.add_resource(UserRegister, '/api/v2/auth/register')
+
+api.add_resource(UserList, '/api/v2/user/questions')
 
 @app.route('/')
 def home():
