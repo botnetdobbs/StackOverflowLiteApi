@@ -14,8 +14,17 @@ from flask_jwt import JWT
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.config.from_object('config.ProductionConfig')
+<<<<<<< Updated upstream
 create_tables()
+=======
+<<<<<<< HEAD
+# create_tables()
+>>>>>>> Stashed changes
 api = Api(app)
+=======
+create_tables()
+api = Api(app) 
+>>>>>>> chore/Travis-ci-add-db-setup-#160094179
 #Custom authentification endpoint
 app.config['JWT_AUTH_URL_RULE'] = '/api/v2/auth/login'
 
