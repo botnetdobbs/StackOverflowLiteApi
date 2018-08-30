@@ -18,6 +18,9 @@ app.config.from_object('config.ProductionConfig')
 api = Api(app)
 #Custom authentification endpoint
 app.config['JWT_AUTH_URL_RULE'] = '/api/v2/auth/login'
+
+#Get message when user ain't logged in 
+app.config['PROPAGATE_EXCEPTIONS'] = True
 #Custom jwt timeout token to expire after an hour
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=3600)
 
