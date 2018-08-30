@@ -6,7 +6,7 @@ from flask_jwt import current_identity, jwt_required
 class UserRegister(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('username',
-        type = inputs.regex('[a-zA-Z0-9]'),
+        type = inputs.regex('^[a-z0-9_-]{3,15}$'),
         required = True,
         help = "Please enter a valid username"
     )
@@ -16,9 +16,9 @@ class UserRegister(Resource):
         help = 'Invalid email address'
     )
     parser.add_argument('password',
-        type = str,
+        type = inputs.regex('[A-Za-z0-9@#$%^&+=]{8,}'),
         required = True,
-        help = "The password field is required"
+        help = "The password is not strong enough"
     )
     """
     Handle the post request to register user
