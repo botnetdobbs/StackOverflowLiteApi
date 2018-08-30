@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.config.from_object('config.ProductionConfig')
 create_tables()
-api = Api(app)
+api = Api(app) 
 #Custom authentification endpoint
 app.config['JWT_AUTH_URL_RULE'] = '/api/v2/auth/login'
 
