@@ -31,6 +31,8 @@ class UserRegister(Resource):
         #else, create a new user object, save it and return a success message
         if UserModel.get_by_username(data['username']):
             return {"message": "The username already exists"}, 409
+        if UserModel.get_by_email(data['email']):
+            return {"message": "The email already exists"}, 409
 
         user = UserModel(data['username'], data['email'], data['password'])
         user.save()
