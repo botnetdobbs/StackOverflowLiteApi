@@ -12,8 +12,10 @@ from flask_jwt import JWT
 
 
 app = Flask(__name__)
+#App should work even with  trailing slashes on Url
+app.url_map.strict_slashes = False
 app.config.from_object('config.ProductionConfig')
-create_tables()
+# create_tables()
 api = Api(app)
 #Custom authentification endpoint
 app.config['JWT_AUTH_URL_RULE'] = '/api/v2/auth/login'
@@ -44,4 +46,3 @@ def home():
 @app.errorhandler(404)
 def page_not_found(e):
     return jsonify({"message": "The resource cannot be found"}), 404
-
