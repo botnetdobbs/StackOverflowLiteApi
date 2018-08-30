@@ -7,7 +7,7 @@ from flask_jwt import jwt_required
 class Answer(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('answer', 
-        type = inputs.regex('^[a-zA-Z0-9_-]{3,150}$'),
+        type = inputs.regex('[a-zA-Z0-9]'),
         required = True,
         help = "Please enter a valid answer."
     )
@@ -68,7 +68,7 @@ class Answer(Resource):
 class AnswerList(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('answer', 
-        type = inputs.regex('^[a-zA-Z0-9_-]{3,150}$'),
+        type = inputs.regex('[a-zA-Z0-9]'),
         required = True,
         help = "Please enter a valid answer."
     )
