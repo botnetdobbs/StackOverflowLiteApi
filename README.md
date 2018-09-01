@@ -7,6 +7,7 @@ NB: Challenge 2 is in the challenge2 branch
 # Usage
 - [Get started here- Challenge 2](https://zstackoverflowliteapi.herokuapp.com)
 - [Get started here- Challenge 3](https://radiant-atoll-76789.herokuapp.com)
+- [Pivotal Tracker Stories](https://www.pivotaltracker.com/n/projects/2190721)
 
 - clone the Repo `git clone https://github.com/botnetdobbs/StackOverflowLiteApi.git`
 - Install Virtualenv `pip install virtualenv`
