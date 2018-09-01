@@ -35,16 +35,23 @@ class Question(Resource):
         #if not, check if the question identified by id exists
         #if true, update the question and return
         #else, return an error message
+
+        #Get the identity of the currently logged in user
+        identity = 0
+        if current_identity.id:
+            identity = current_identity.id
         data = cls.parser.parse_args()
         if not QuestionModel.find_by_description(data['description']):
             question = QuestionModel.find_by_id(questionID)
             if question:
-                #create a new object with updated details
-                updated_question = QuestionModel(data['title'], data['description'], question.id)
-                #Update and return json data
-                if updated_question.update():
-                    return QuestionModel.find_descriptive_single_question(questionID), 200
-                return {"message": "Question could not be updated."}, 409
+                if question.id == identity:
+                        #create a new object with updated details
+                        updated_question = QuestionModel(data['title'], data['description'], question.id)
+                        #Update and return json data
+                        if updated_question.update():
+                            return QuestionModel.find_descriptive_single_question(questionID), 200
+                        return {"message": "Question could not be updated."}, 409
+                return {"message": "You do not have permission to edit the question."}
             return {"message": "You can't edit a non-existing question."}, 422
         return {"message": "Question with the same decription already exists."}, 422
 
@@ -53,12 +60,20 @@ class Question(Resource):
         #Check if the question really exists
         #if True call the delete method and return a success message
         #else, return an error message
+
+        #Get the identity of the currently logged in user
+        identity = 0
+        if current_identity.id:
+            identity = current_identity.id
         question = QuestionModel.find_by_id(questionID)
         if question:
-            if question.delete():
-                return {"message": "Question deleted successfully."}, 201
+            if question.id == identity:
+                if question.delete():
+                    return {"message": "Question deleted successfully."}, 201
+                else:
+                    return {"message": "Question not deleted."}, 409 #Confilict
             else:
-                return {"message": "Question not deleted."}, 409 #Confilict
+                return {"message": "You do not have permission to delete the question."}
         return {"message": "The question is not available or it was already deleted."}, 422 #Unprocessable entity
 
 class QuestionList(Resource):
