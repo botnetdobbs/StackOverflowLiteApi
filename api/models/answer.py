@@ -17,12 +17,12 @@ class AnswerModel:
 
     """Add answer to the question in the questions list
     """
-    def add_answer(self, questionID):
+    def add_answer(self, questionID, identity):
         with connect() as connection:
             with connection.cursor() as cursor:
                 cursor.execute("""INSERT INTO answers 
-                                (question_id, answer) VALUES(%s, %s)""", 
-                                (questionID, self.answer))
+                                (question_id, author, answer) VALUES(%s, %s, %s)""", 
+                                (questionID, identity, self.answer))
                 return True
 
     """Find an answer uniquely identified by its ID
@@ -62,7 +62,7 @@ class AnswerModel:
         with connect() as connection:
             with connection.cursor() as cursor:
                 cursor.execute("""SELECT answers.id, questions.id,
-                                answers.answer, answers.upvote, answers.downvote, answers.solved FROM answers
+                                answers.answer, answers.upvote, answers.downvote, answers.solved, answers.author FROM answers
                                 INNER JOIN questions ON questions.id  = answers.question_id
                                 WHERE answers.id = %s""", (answerID,))
                 question = cursor.fetchone()
@@ -72,7 +72,8 @@ class AnswerModel:
                             "answer": question[2], 
                             "upvotes": question[3],
                             "downvotes": question[4],
-                            "solved": question[5]}
+                            "solved": question[5],
+                            "author": question[6]}
                     return data
 
     """Get answer/s to the question in the questions list
@@ -94,7 +95,8 @@ class AnswerModel:
                                     "answer": answer[2], 
                                     "upvotes": answer[3],
                                     "downvotes": answer[4],
-                                    "solved": answer[5]})
+                                    "solved": answer[5],
+                                    "author": answer[6]})
                     return answ
                 return None
 

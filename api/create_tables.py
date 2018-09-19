@@ -31,6 +31,7 @@ def create_tables():
                             upvote INT DEFAULT 0,
                             downvote INT DEFAULT 0,
                             solved INT DEFAULT 0,
+                            author character varying(60) NOT NULL,
                             FOREIGN KEY (question_id) 
                             REFERENCES questions (id)
                             ON DELETE CASCADE ON UPDATE CASCADE)

@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse, inputs
 from api.models.answer import AnswerModel
 from api.models.question import QuestionModel
-from flask_jwt import jwt_required
+from flask_jwt import jwt_required, current_identity
 
 
 class Answer(Resource):
@@ -81,10 +81,15 @@ class AnswerList(Resource):
         #to add_answer method in answermodel(return the response)
         #else return error messages
         data = cls.parser.parse_args()
+
+        identity = 0
+        if current_identity.id:
+            identity = current_identity.username
+
         if QuestionModel.find_by_id(questionID):
             if not AnswerModel.find_by_answer(questionID, data['answer']):
                 answer = AnswerModel(data["answer"])
-                if answer.add_answer(questionID):
+                if answer.add_answer(questionID, identity):
                     return {"message": "Answer inserted successfully"}, 201
             return {"message": "The answer already exists"}, 409
 
@@ -97,7 +102,7 @@ class AnswerList(Resource):
         if QuestionModel.find_by_id(questionID):
             answers = AnswerModel.get_answers(questionID)
             if answers:
-                return answers
+                return answers, 200
             return {"message": "There are no answers for this question"}, 422 #Unprocessable entity
         return {"message": "You can't find answers for a non existing question"}, 422 # Unp0rocessable entity
 
