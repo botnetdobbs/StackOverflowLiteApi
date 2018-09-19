@@ -43,8 +43,9 @@ class Question(Resource):
         data = cls.parser.parse_args()
         if not QuestionModel.find_by_description(data['description']):
             question = QuestionModel.find_by_id(questionID)
+            validate_owner = QuestionModel.find_descriptive_single_question(question.id);
             if question:
-                if question.id == identity:
+                if validate_owner.get('author') == identity:
                         #create a new object with updated details
                         updated_question = QuestionModel(data['title'], data['description'], question.id)
                         #Update and return json data
@@ -64,10 +65,11 @@ class Question(Resource):
         #Get the identity of the currently logged in user
         identity = 0
         if current_identity.id:
-            identity = current_identity.id
+            identity = current_identity.username
         question = QuestionModel.find_by_id(questionID)
+        validate_owner = QuestionModel.find_descriptive_single_question(question.id);
         if question:
-            if question.id == identity:
+            if validate_owner.get('author') == identity:
                 if question.delete():
                     return {"message": "Question deleted successfully."}, 201
                 else:
