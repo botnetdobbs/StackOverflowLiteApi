@@ -39,7 +39,7 @@ class Question(Resource):
         #Get the identity of the currently logged in user
         identity = 0
         if current_identity.id:
-            identity = current_identity.id
+            identity = current_identity.username
         data = cls.parser.parse_args()
         if not QuestionModel.find_by_description(data['description']):
             question = QuestionModel.find_by_id(questionID)

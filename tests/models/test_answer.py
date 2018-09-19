@@ -26,7 +26,7 @@ def test_save_answer():
     new_question = QuestionModel('My simple title', 'My simple question')
     new_question.save(1)
     samp_answer = AnswerModel("This is my sample answer")
-    samp_answer.add_answer(1)
+    samp_answer.add_answer(1, 'lazarus')
     teardown()
 
 def test_answer_find_by_id():
@@ -35,7 +35,7 @@ def test_answer_find_by_id():
     new_question = QuestionModel('My simple title', 'My simple question')
     new_question.save(1)
     samp_answer = AnswerModel("My sample answer")
-    samp_answer.add_answer(1)
+    samp_answer.add_answer(1, 'lazarus')
 
     answer = AnswerModel.find_by_id(1, 1)
     assert answer.answer != "My simple answer"
@@ -47,7 +47,7 @@ def test_update():
     new_question = QuestionModel('My simple title', 'My simple question')
     new_question.save(1)
     samp_answer = AnswerModel("This is my sample answer")
-    samp_answer.add_answer(1)
+    samp_answer.add_answer(1, 'lazarus')
     new_answer = AnswerModel.find_by_id(1, 1)
     new_answer.answer = 'This is my new answer'
     assert new_answer.update(1) == True
@@ -59,7 +59,7 @@ def test_delete():
     new_question = QuestionModel('My simple title', 'My simple question')
     new_question.save(1)
     samp_answer = AnswerModel("This is my sample answer")
-    samp_answer.add_answer(1)
+    samp_answer.add_answer(1, 'lazarus')
     answer = AnswerModel.find_by_id(1, 1)
     assert answer.delete(1) == True
     teardown()
