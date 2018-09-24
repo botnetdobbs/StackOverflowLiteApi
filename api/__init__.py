@@ -15,8 +15,8 @@ from flask_jwt import JWT
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 app.url_map.strict_slashes = False
-app.config.from_object('config.DevelopmentConfig')
-create_tables()
+app.config.from_object('config.ProductionConfig')
+# create_tables()
 api = Api(app)
 
 #Custom authentification endpoint
