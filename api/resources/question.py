@@ -5,13 +5,13 @@ from flask_jwt import current_identity, jwt_required
 class Question(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('title', 
-        type = inputs.regex('[a-zA-Z0-9]'),
+        type = inputs.regex('^[a-zA-Z0-9 ]{3,30}$'),
         required = True,
         help = 'Invalid question title.'
     )
     
     parser.add_argument('description',
-        type = inputs.regex('[a-zA-Z0-9]'),
+        type = inputs.regex('^[a-zA-Z0-9 ]{3,300}$'),
         required = True,
         help = 'Invalid question description.'
     )
@@ -81,13 +81,13 @@ class Question(Resource):
 class QuestionList(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('title', 
-        type = inputs.regex('[a-zA-Z0-9]'),
+        type = inputs.regex('^[a-zA-Z0-9 ]{3,30}$'),
         required = True,
         help = 'Invalid question title.'
     )
     
     parser.add_argument('description',
-        type = inputs.regex('[a-zA-Z0-9]'),
+        type = inputs.regex('^[a-zA-Z0-9 ]{3,300}$'),
         required = True,
         help = 'Invalid question description.'
     )
