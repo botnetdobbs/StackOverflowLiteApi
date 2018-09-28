@@ -11,7 +11,7 @@ class Question(Resource):
     )
     
     parser.add_argument('description',
-        type = inputs.regex('^[a-zA-Z0-9 ]{3,300}$'),
+        type = inputs.regex('^[a-zA-Z0-9.,? ]{3,300}$'),
         required = True,
         help = 'Invalid question description.'
     )
@@ -43,7 +43,7 @@ class Question(Resource):
         data = cls.parser.parse_args()
         if not QuestionModel.find_by_description(data['description']):
             question = QuestionModel.find_by_id(questionID)
-            validate_owner = QuestionModel.find_descriptive_single_question(question.id);
+            validate_owner = QuestionModel.find_descriptive_single_question(question.id)
             if question:
                 if validate_owner.get('author') == identity:
                         #create a new object with updated details
@@ -67,7 +67,7 @@ class Question(Resource):
         if current_identity.id:
             identity = current_identity.username
         question = QuestionModel.find_by_id(questionID)
-        validate_owner = QuestionModel.find_descriptive_single_question(question.id);
+        validate_owner = QuestionModel.find_descriptive_single_question(question.id)
         if question:
             if validate_owner.get('author') == identity:
                 if question.delete():
@@ -87,7 +87,7 @@ class QuestionList(Resource):
     )
     
     parser.add_argument('description',
-        type = inputs.regex('^[a-zA-Z0-9 ]{3,300}$'),
+        type = inputs.regex('^[a-zA-Z0-9.,? ]{3,300}$'),
         required = True,
         help = 'Invalid question description.'
     )
