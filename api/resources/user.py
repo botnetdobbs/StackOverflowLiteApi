@@ -6,7 +6,7 @@ from flask_jwt import current_identity, jwt_required
 class UserRegister(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('username',
-        type = inputs.regex('^[a-z0-9_-]{3,15}$'),
+        type = inputs.regex('^(?!_$)(?![-.])(?!.*[_.-]{2})[a-zA-Z0-9_.-]+(?<![.-])$'),
         required = True,
         help = "Please enter a valid username"
     )
