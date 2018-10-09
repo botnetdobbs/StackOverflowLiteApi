@@ -16,7 +16,7 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 app.url_map.strict_slashes = False
 app.config.from_object('config.ProductionConfig')
-#create_tables()
+create_tables()
 api = Api(app)
 
 #Custom authentification endpoint
